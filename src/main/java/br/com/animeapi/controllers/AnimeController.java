@@ -50,4 +50,10 @@ public class AnimeController {
         animeService.updateAnime(id,anime);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAnime(@PathVariable UUID id){
+        animeService.deleteAnime(id);
+        return ResponseEntity.noContent().build();
+    }
 }
