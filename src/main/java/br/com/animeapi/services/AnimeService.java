@@ -8,9 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class AnimeService {
@@ -29,5 +32,10 @@ public class AnimeService {
 
     public Page<AnimeResponseDto> getAnimes(Pageable page) {
         return animeRepository.findAll(page).map(anime -> modelMapper.map(anime, AnimeResponseDto.class));
+    }
+
+    public  AnimeResponseDto findById(UUID id){
+        var anime = animeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return modelMapper.map(anime,AnimeResponseDto.class);
     }
 }

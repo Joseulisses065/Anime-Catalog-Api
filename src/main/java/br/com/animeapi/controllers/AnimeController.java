@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/animes")
@@ -34,6 +35,12 @@ public class AnimeController {
     @GetMapping
     public ResponseEntity<Page<AnimeResponseDto>> findAll(Pageable page) {
         var response = animeService.getAnimes(page);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AnimeResponseDto> findById(@PathVariable UUID id) {
+        var response = animeService.findById(id);
         return ResponseEntity.ok(response);
     }
 }
