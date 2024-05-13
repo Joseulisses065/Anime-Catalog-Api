@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -34,8 +35,16 @@ public class AnimeService {
         return animeRepository.findAll(page).map(anime -> modelMapper.map(anime, AnimeResponseDto.class));
     }
 
-    public  AnimeResponseDto findById(UUID id){
+    public AnimeResponseDto findById(UUID id) {
         var anime = animeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        return modelMapper.map(anime,AnimeResponseDto.class);
+        return modelMapper.map(anime, AnimeResponseDto.class);
+    }
+
+
+    public void updateAnime(UUID id, AnimeRequestDto anime) {
+        var entity = animeRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        entity.setUpdatedAt(LocalDateTime.now());
+        modelMapper.map(anime,entity);
+        animeRepository.save(entity);
     }
 }

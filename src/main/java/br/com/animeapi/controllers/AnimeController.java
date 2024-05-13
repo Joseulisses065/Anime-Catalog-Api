@@ -43,4 +43,10 @@ public class AnimeController {
         var response = animeService.findById(id);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}")
+    public  ResponseEntity<Void> updateAnime(@PathVariable UUID id, @RequestBody AnimeRequestDto anime){
+        animeService.updateAnime(id,anime);
+        return ResponseEntity.noContent().build();
+    }
 }
