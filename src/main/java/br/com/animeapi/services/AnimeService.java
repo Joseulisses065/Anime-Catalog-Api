@@ -48,4 +48,9 @@ public class AnimeService {
         modelMapper.map(anime,entity);
         animeRepository.save(entity);
     }
+
+    public void deleteAnime(UUID id) {
+        var entity = animeRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        animeRepository.delete(entity);
+    }
 }
