@@ -1,6 +1,7 @@
 package br.com.animeapi.services;
 
 import br.com.animeapi.domain.dto.request.AnimeRequestDto;
+import br.com.animeapi.domain.dto.request.AnimeRequestUpdateDto;
 import br.com.animeapi.domain.dto.response.AnimeResponseDto;
 import br.com.animeapi.domain.entitites.Anime;
 import br.com.animeapi.repositories.AnimeRepository;
@@ -41,7 +42,7 @@ public class AnimeService {
     }
 
 
-    public void updateAnime(UUID id, AnimeRequestDto anime) {
+    public void updateAnime(UUID id, AnimeRequestUpdateDto anime) {
         var entity = animeRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
         entity.setUpdatedAt(LocalDateTime.now());
         modelMapper.map(anime,entity);

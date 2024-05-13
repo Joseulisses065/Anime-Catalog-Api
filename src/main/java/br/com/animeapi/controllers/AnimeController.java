@@ -1,6 +1,7 @@
 package br.com.animeapi.controllers;
 
 import br.com.animeapi.domain.dto.request.AnimeRequestDto;
+import br.com.animeapi.domain.dto.request.AnimeRequestUpdateDto;
 import br.com.animeapi.domain.dto.response.AnimeResponseDto;
 import br.com.animeapi.services.AnimeService;
 import jakarta.validation.Valid;
@@ -45,7 +46,7 @@ public class AnimeController {
     }
 
     @PutMapping("/{id}")
-    public  ResponseEntity<Void> updateAnime(@PathVariable UUID id, @RequestBody AnimeRequestDto anime){
+    public  ResponseEntity<Void> updateAnime(@PathVariable UUID id, @RequestBody AnimeRequestUpdateDto anime){
         animeService.updateAnime(id,anime);
         return ResponseEntity.noContent().build();
     }
