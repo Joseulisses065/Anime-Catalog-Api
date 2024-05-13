@@ -9,5 +9,5 @@ services:
       POSTGRES_PASSWORD: 3532
       POSTGRES_DB: animedb
     ports:
-      - "5432:5432"
+      - "5433:5433"
 
