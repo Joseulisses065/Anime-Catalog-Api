@@ -1,10 +1,12 @@
+cors:
+  originPatterns: http://localhost:3000,http://localhost:8080
 spring:
   application:
     name: animeapi
   datasource:
     url: "jdbc:postgresql://localhost:5432/animedb"
-    username: ulisses
-    password: 3532
+    username: docker
+    password: docker
   jpa:
     hibernate:
       ddl-auto: update
