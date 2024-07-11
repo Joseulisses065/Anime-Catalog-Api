@@ -10,19 +10,16 @@ import java.time.LocalDate;
 
 
 public class AnimeRequestDto {
-    @NotBlank
-    @NotNull
+    @NotBlank(message = "Name can't be empty")
     private String name;
-    @NotBlank
-    @NotNull
+    @NotBlank(message = "Description can't be empty")
     private String description;
+    @NotNull(message = "Release Date can't be null")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull
     private LocalDate releaseDate;
-    @NotNull
+    @NotNull(message = "category can't be null")
     private Category category;
-    @NotBlank
-    @NotNull
+    @NotBlank(message = "whereToWatch can't be empty")
     private String whereToWatch;
 
     public AnimeRequestDto() {

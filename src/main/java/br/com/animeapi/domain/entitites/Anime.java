@@ -2,6 +2,7 @@ package br.com.animeapi.domain.entitites;
 
 import br.com.animeapi.domain.enums.Category;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,18 +12,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity(name = "movies")
+@Entity()
+@Table(name = "animes")
 public class Anime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(nullable = false)
     private String name;
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", nullable = false)
     private String description;
+    @Column(nullable = false)
     private LocalDate releaseDate;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Category category;
+    @Column(nullable = false)
     private String whereToWatch;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
