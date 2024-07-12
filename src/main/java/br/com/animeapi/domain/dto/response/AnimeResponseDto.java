@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AnimeResponseDto {
+public class AnimeResponseDto extends RepresentationModel<AnimeResponseDto> {
     private UUID id;
     private String name;
     private String description;
@@ -24,6 +25,7 @@ public class AnimeResponseDto {
     private LocalDate releaseDate;
     private Category category;
     private String whereToWatch;
+    private String image;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime createdAt;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
@@ -32,13 +34,14 @@ public class AnimeResponseDto {
     public AnimeResponseDto() {
     }
 
-    public AnimeResponseDto(UUID id, String name, String description, LocalDate releaseDate, Category category, String whereToWatch, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public AnimeResponseDto(UUID id, String name, String description, LocalDate releaseDate, Category category, String whereToWatch, String image, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.category = category;
         this.whereToWatch = whereToWatch;
+        this.image = image;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -49,6 +52,14 @@ public class AnimeResponseDto {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {

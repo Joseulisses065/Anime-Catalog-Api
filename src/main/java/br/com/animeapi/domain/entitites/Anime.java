@@ -28,6 +28,8 @@ public class Anime {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Category category;
+    @Column(nullable = false, length = 1024)
+    private String image;
     @Column(nullable = false)
     private String whereToWatch;
     private LocalDateTime createdAt;
@@ -37,12 +39,13 @@ public class Anime {
     public Anime() {
     }
 
-    public Anime(UUID id, String name, String description, LocalDate releaseDate, Category category, String whereToWatch, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Anime(UUID id, String name, String description, LocalDate releaseDate, Category category, String image, String whereToWatch, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.category = category;
+        this.image = image;
         this.whereToWatch = whereToWatch;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -110,5 +113,13 @@ public class Anime {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
