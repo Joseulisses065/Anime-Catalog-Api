@@ -21,16 +21,28 @@ public class AnimeRequestDto {
     private Category category;
     @NotBlank(message = "whereToWatch can't be empty")
     private String whereToWatch;
+    @NotBlank(message = "image can't be empty")
+    private String image;
+
 
     public AnimeRequestDto() {
     }
 
-    public AnimeRequestDto(String name, String description, LocalDate releaseDate, Category category, String whereToWatch) {
+    public AnimeRequestDto(String name, String description, LocalDate releaseDate, Category category, String whereToWatch, String image) {
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.category = category;
         this.whereToWatch = whereToWatch;
+        this.image = image;
+    }
+
+    public @NotBlank(message = "image can't be empty") String getImage() {
+        return image;
+    }
+
+    public void setImage(@NotBlank(message = "image can't be empty") String image) {
+        this.image = image;
     }
 
     public @NotBlank @NotNull String getName() {

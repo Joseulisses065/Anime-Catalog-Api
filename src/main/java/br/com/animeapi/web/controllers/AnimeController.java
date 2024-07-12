@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -36,9 +38,9 @@ public class AnimeController {
             @ApiResponse(responseCode = "422" , description = "Unprocessable entity", content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMenssage.class)))
     })
     @PostMapping
-    public ResponseEntity<AnimeResponseDto> createAnime( @Valid  @RequestBody AnimeRequestDto anime, UriComponentsBuilder builder) {
+    public ResponseEntity<AnimeResponseDto> createAnime( @Valid  @RequestBody AnimeRequestDto anime) {
         AnimeResponseDto response = animeService.createAnime(anime);
-        URI uri = builder.path("/{id}").buildAndExpand(response.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(response.getId()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
 
