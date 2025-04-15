@@ -2,20 +2,19 @@ package br.com.animeapi.domain.entitites;
 
 import br.com.animeapi.domain.enums.Category;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity()
 @Table(name = "animes")
-public class Anime {
-
+public class Anime implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -23,16 +22,18 @@ public class Anime {
     private String name;
     @Column(columnDefinition = "text", nullable = false)
     private String description;
-    @Column(nullable = false)
+    @Column(nullable = false,name = "release_date")
     private LocalDate releaseDate;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Category category;
     @Column(nullable = false, length = 1024)
     private String image;
-    @Column(nullable = false)
+    @Column(nullable = false,name = "where_to_watch")
     private String whereToWatch;
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
 
@@ -121,5 +122,32 @@ public class Anime {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Anime anime = (Anime) o;
+        return Objects.equals(id, anime.id) && Objects.equals(name, anime.name) && Objects.equals(description, anime.description) && Objects.equals(releaseDate, anime.releaseDate) && category == anime.category && Objects.equals(image, anime.image) && Objects.equals(whereToWatch, anime.whereToWatch) && Objects.equals(createdAt, anime.createdAt) && Objects.equals(updatedAt, anime.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, releaseDate, category, image, whereToWatch, createdAt, updatedAt);
+    }
+
+    @Override
+    public String toString() {
+        return "Anime{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", category=" + category +
+                ", image='" + image + '\'' +
+                ", whereToWatch='" + whereToWatch + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

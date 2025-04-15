@@ -2,23 +2,31 @@ package br.com.animeapi.domain.dto.request;
 
 import br.com.animeapi.domain.enums.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
-public class AnimeRequestUpdateDto {
+public class AnimeRequestUpdateDto implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     @NotBlank(message = "Name can't be empty")
     private String name;
     @NotBlank(message = "Description can't be empty")
     private String description;
     @NotNull(message = "Release Date can't be null")
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonProperty("release_date")
     private LocalDate releaseDate;
     @NotNull(message = "category can't be null")
     private Category category;
     @NotBlank(message = "whereToWatch can't be empty")
+    @JsonProperty("where_to_watch")
     private String whereToWatch;
     @NotBlank(message = "image can't be empty")
     private String image;
@@ -82,5 +90,29 @@ public class AnimeRequestUpdateDto {
 
     public void setImage(@NotBlank(message = "image can't be empty") String image) {
         this.image = image;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        AnimeRequestUpdateDto that = (AnimeRequestUpdateDto) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(releaseDate, that.releaseDate) && category == that.category && Objects.equals(whereToWatch, that.whereToWatch) && Objects.equals(image, that.image);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, releaseDate, category, whereToWatch, image);
+    }
+
+    @Override
+    public String toString() {
+        return "AnimeRequestUpdateDto{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", category=" + category +
+                ", whereToWatch='" + whereToWatch + '\'' +
+                ", image='" + image + '\'' +
+                '}';
     }
 }
