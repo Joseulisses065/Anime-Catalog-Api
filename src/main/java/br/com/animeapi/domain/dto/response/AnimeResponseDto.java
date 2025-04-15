@@ -3,32 +3,48 @@ package br.com.animeapi.domain.dto.response;
 import br.com.animeapi.domain.enums.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
-
+@JsonPropertyOrder({
+        "id",
+        "name",
+        "description",
+        "release_date",
+        "category",
+        "whereTo_watch",
+        "image",
+        "created_at",
+        "updated_at",
+        "_links"
+})
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AnimeResponseDto extends RepresentationModel<AnimeResponseDto> {
+public class AnimeResponseDto extends RepresentationModel<AnimeResponseDto> implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private UUID id;
     private String name;
     private String description;
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonProperty("release_date")
     private LocalDate releaseDate;
     private Category category;
+    @JsonProperty("whereTo_watch")
     private String whereToWatch;
     private String image;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonProperty("created_at")
     private LocalDateTime createdAt;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
 
     public AnimeResponseDto() {
@@ -118,5 +134,32 @@ public class AnimeResponseDto extends RepresentationModel<AnimeResponseDto> {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
 
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        AnimeResponseDto that = (AnimeResponseDto) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(releaseDate, that.releaseDate) && category == that.category && Objects.equals(whereToWatch, that.whereToWatch) && Objects.equals(image, that.image) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), id, name, description, releaseDate, category, whereToWatch, image, createdAt, updatedAt);
+    }
+
+    @Override
+    public String toString() {
+        return "AnimeResponseDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", category=" + category +
+                ", whereToWatch='" + whereToWatch + '\'' +
+                ", image='" + image + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }
